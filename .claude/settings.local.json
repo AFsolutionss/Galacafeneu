@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:api.anthropic.com)",
+      "Bash(unzip -l \"C:/Users/gamingpc24/Downloads/GALA Webseite.zip\")",
+      "Bash(wc -l \"/tmp/gala_preview/components/\"*.jsx)",
+      "Bash(cd \"C:/Development/Galacafeneu\" && powershell -Command \"Expand-Archive -Path 'C:/Users/gamingpc24/Downloads/GALA Webseite.zip' -DestinationPath '.' -Force\")",
+      "Bash(cd \"C:/Development/Galacafeneu\" && npx --yes serve . -p 3000)",
+      "Bash(cp \"C:/Users/gamingpc24/Pictures/Screenshots/Screenshot 2026-05-02 124725.png\" \"C:/Development/Galacafeneu/img/gallery-7.png\" && cp \"C:/Users/gamingpc24/Pictures/Screenshots/Screenshot 2026-05-02 124736.png\" \"C:/Development/Galacafeneu/img/gallery-8.png\" && cp \"C:/Users/gamingpc24/Pictures/Screenshots/Screenshot 2026-05-02 124743.png\" \"C:/Development/Galacafeneu/img/gallery-9.png\" && cp \"C:/Users/gamingpc24/Pictures/Screenshots/Screenshot 2026-05-02 124750.png\" \"C:/Development/Galacafeneu/img/gallery-10.png\" && cp \"C:/Users/gamingpc24/Pictures/Screenshots/Screenshot 2026-05-02 124801.png\" \"C:/Development/Galacafeneu/img/gallery-11.png\" && cp \"C:/Users/gamingpc24/Pictures/Screenshots/Screenshot 2026-05-02 124810.png\" \"C:/Development/Galacafeneu/img/gallery-12.png\")",
+      "mcp__plugin_claude-mem_mcp-search__get_observations",
+      "Bash(awk 'NR>=314 && NR<=330' \"C:/Development/Galacafeneu/styles.css\")",
+      "Bash(awk 'NR>=537 && NR<=625' \"C:/Development/Galacafeneu/components/bundle1.jsx\")",
+      "Bash(python3 - << 'PYEOF'\nimport struct, zlib, os\n\ndef avg_color_png\\(path\\):\n    try:\n        with open\\(path, 'rb'\\) as f:\n            data = f.read\\(\\)\n        # Find IHDR for dimensions\n        w = struct.unpack\\('>I', data[16:20]\\)[0]\n        h = struct.unpack\\('>I', data[20:24]\\)[0]\n        # Decompress IDAT\n        idat = b''\n        i = 8\n        while i < len\\(data\\) - 12:\n            length = struct.unpack\\('>I', data[i:i+4]\\)[0]\n            chunk = data[i+4:i+8]\n            if chunk == b'IDAT':\n                idat += data[i+8:i+8+length]\n            i += 12 + length\n        raw = zlib.decompress\\(idat\\)\n        stride = w * 3 + 1\n        rs, gs, bs, n = 0, 0, 0, 0\n        for row in range\\(min\\(h, 50\\)\\):  # sample first 50 rows\n            off = row * stride + 1\n            for col in range\\(0, min\\(w, 50\\) * 3, 3\\):\n                rs += raw[off+col]; gs += raw[off+col+1]; bs += raw[off+col+2]; n += 1\n        return rs//n, gs//n, bs//n\n    except:\n        return None\n\nbase = 'C:/Development/Galacafeneu/img/'\nfor i in range\\(7, 13\\):\n    path = f'{base}gallery-{i}.png'\n    c = avg_color_png\\(path\\)\n    if c:\n        print\\(f'gallery-{i}.png: R={c[0]} G={c[1]} B={c[2]}  {\"<-- RED\" if c[0] > c[1]+40 and c[0] > c[2]+40 else \"\"}'\\)\nPYEOF)",
+      "Bash(python3 -c \"\nfrom PIL import Image\nimport os\nbase = 'C:/Development/Galacafeneu/img/'\nfor i in range\\(1, 13\\):\n    ext = 'png' if i >= 7 else 'jpg'\n    path = f'{base}gallery-{i}.{ext}'\n    img = Image.open\\(path\\).convert\\('RGB'\\).resize\\(\\(50,50\\)\\)\n    pixels = list\\(img.getdata\\(\\)\\)\n    r = sum\\(p[0] for p in pixels\\)//len\\(pixels\\)\n    g = sum\\(p[1] for p in pixels\\)//len\\(pixels\\)\n    b = sum\\(p[2] for p in pixels\\)//len\\(pixels\\)\n    flag = '<-- RED' if r > g+40 and r > b+40 else ''\n    print\\(f'gallery-{i}: R={r} G={g} B={b} {flag}'\\)\n\" 2>/dev/null || echo \"PIL not available\")",
+      "Bash(awk 'NR>=374 && NR<=460' \"C:/Development/Galacafeneu/components/bundle1.jsx\")",
+      "Bash(awk 'NR>=55 && NR<=80' \"C:/Development/Galacafeneu/speisekarte.html\")",
+      "Bash(awk 'NR>=1 && NR<=170' \"C:/Development/Galacafeneu/components/bundle1.jsx\")",
+      "Bash(awk 'NR>=1 && NR<=100' \"C:/Development/Galacafeneu/data.jsx\")",
+      "Bash(awk 'NR>=1 && NR<=169' \"C:/Development/Galacafeneu/components/bundle1.jsx\" | tail -30)",
+      "Bash(awk 'NR>=1 && NR<=170' \"C:/Development/Galacafeneu/components/bundle2.jsx\")",
+      "Bash(python3 - << 'PYEOF'\n# 1. data.jsx — remove Standort from nav\nwith open\\('C:/Development/Galacafeneu/data.jsx', 'r', encoding='utf-8'\\) as f:\n    d = f.read\\(\\)\n\nd = d.replace\\('\\\\n    { label: \"Standort\", href: \"GALA Webseite.html#location\" },', ''\\)\n\nwith open\\('C:/Development/Galacafeneu/data.jsx', 'w', encoding='utf-8'\\) as f:\n    f.write\\(d\\)\nprint\\(\"data.jsx: Standort removed\"\\)\nPYEOF)",
+      "Bash(gh auth:*)"
+    ]
+  }
+}

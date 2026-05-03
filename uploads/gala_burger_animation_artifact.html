@@ -1,0 +1,171 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap');
+  *{box-sizing:border-box;margin:0;padding:0}
+  .scene{
+    height:520px;background:#0e0d0b;position:relative;
+    overflow:hidden;display:flex;align-items:center;justify-content:center;
+    cursor:ns-resize;user-select:none;
+  }
+  .burger-wrap{position:relative;width:310px;height:310px;flex-shrink:0;will-change:transform,filter;}
+  .burger-img{width:100%;height:100%;object-fit:cover;border-radius:3px;display:block;}
+  .text-left{position:absolute;left:0;right:50%;top:50%;transform:translateY(-50%);padding-right:2.5rem;text-align:right;pointer-events:none;}
+  .text-right{position:absolute;left:50%;right:0;top:50%;transform:translateY(-50%);padding-left:2.5rem;pointer-events:none;}
+  .lbl{font-family:'DM Sans',sans-serif;font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:#C9A84C;margin-bottom:.5rem;display:block;}
+  .hdl{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,3vw,2.2rem);color:#F5F0E8;line-height:1.12;}
+  .hdl em{font-style:italic;color:#D9BC72;}
+  .sub{font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(158,154,148,.65);margin-top:.55rem;line-height:1.65;}
+  .badge{display:inline-block;border:1px solid rgba(201,168,76,.4);color:#C9A84C;font-family:'DM Sans',sans-serif;font-size:11px;letter-spacing:.15em;padding:.35rem .9rem;margin-top:.85rem;}
+  .cta{display:inline-block;background:#C9A84C;color:#1C1A17;font-family:'DM Sans',sans-serif;font-size:9px;letter-spacing:.22em;text-transform:uppercase;font-weight:600;padding:.6rem 1.5rem;border:none;cursor:pointer;margin-top:.8rem;}
+  .scrub{position:absolute;bottom:1.4rem;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:.75rem;}
+  .scrub span{font-family:'DM Sans',sans-serif;font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:rgba(158,154,148,.45);}
+  .track{width:90px;height:1px;background:rgba(255,255,255,.1);position:relative;}
+  .trackfill{height:100%;width:0%;background:#C9A84C;}
+  .hint{position:absolute;top:1.1rem;left:50%;transform:translateX(-50%);font-family:'DM Sans',sans-serif;font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:rgba(158,154,148,.4);white-space:nowrap;transition:opacity .6s;}
+  .glow{position:absolute;width:300px;height:300px;border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%) scale(.5);pointer-events:none;opacity:0;background:radial-gradient(circle,rgba(190,110,20,.2) 0%,transparent 70%);}
+
+  .upload-prompt{
+    position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:1rem;z-index:20;background:#0e0d0b;
+  }
+  .upload-box{
+    border:1px solid rgba(201,168,76,.3);padding:2rem 3rem;text-align:center;cursor:pointer;
+    transition:border-color .3s;
+  }
+  .upload-box:hover{border-color:rgba(201,168,76,.7);}
+  .upload-box p{font-family:'DM Sans',sans-serif;font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:rgba(201,168,76,.7);margin-top:.5rem;}
+  .upload-box svg{display:block;margin:0 auto;}
+  .upload-input{display:none;}
+  .upload-title{font-family:'Playfair Display',serif;font-size:1.4rem;color:#F5F0E8;letter-spacing:.05em;}
+  .upload-sub{font-family:'DM Sans',sans-serif;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(158,154,148,.5);}
+</style>
+
+<div class="scene" id="scene">
+  <div class="glow" id="glow"></div>
+
+  <div class="upload-prompt" id="uploadPrompt">
+    <div class="upload-title">GALA Burger</div>
+    <div class="upload-sub">Scroll Animation</div>
+    <label class="upload-box" for="imgInput">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.5">
+        <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
+      </svg>
+      <p>Burger-Foto hochladen</p>
+    </label>
+    <input type="file" id="imgInput" class="upload-input" accept="image/*">
+  </div>
+
+  <div class="text-left">
+    <span class="lbl" id="e0" style="opacity:0;transform:translateX(-20px)">Handmade</span>
+    <div class="hdl" id="e1" style="opacity:0;transform:translateX(-24px)">Der<br><em>GALA</em><br>Burger</div>
+    <div class="sub" id="e2" style="opacity:0;transform:translateX(-16px)">Smash Patty · Brioche<br>Geheime Sauce</div>
+  </div>
+
+  <div class="burger-wrap" id="burgerWrap" style="transform:scale(.78) translateY(32px);filter:brightness(.3) saturate(.4);">
+    <img class="burger-img" id="burgerImg" src="" alt="GALA Burger" style="display:none;">
+    <svg id="burgerSVG" width="310" height="310" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="bT" cx="50%" cy="60%" r="55%"><stop offset="0%" stop-color="#c97a2a"/><stop offset="60%" stop-color="#8b4a12"/><stop offset="100%" stop-color="#5a2d06"/></radialGradient>
+        <radialGradient id="bB" cx="50%" cy="40%" r="55%"><stop offset="0%" stop-color="#b86a1e"/><stop offset="100%" stop-color="#6b3b0e"/></radialGradient>
+        <radialGradient id="pt" cx="50%" cy="40%" r="55%"><stop offset="0%" stop-color="#3a1a08"/><stop offset="100%" stop-color="#1a0a02"/></radialGradient>
+        <linearGradient id="sc" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#c97a2a" stop-opacity=".9"/><stop offset="100%" stop-color="#8b3a0a" stop-opacity=".6"/></linearGradient>
+        <linearGradient id="gl" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#1a1a1a"/><stop offset="100%" stop-color="#050505"/></linearGradient>
+      </defs>
+      <ellipse cx="150" cy="232" rx="105" ry="21" fill="#6b3b0e" opacity=".65"/>
+      <path d="M50 216 Q50 238 150 238 Q250 238 250 216 L245 211 Q150 222 55 211 Z" fill="url(#bB)"/>
+      <path d="M58 196 Q58 213 150 213 Q242 213 242 196 L238 189 Q150 199 62 189 Z" fill="url(#pt)"/>
+      <path d="M62 189 Q62 197 150 197 Q238 197 238 189" fill="none" stroke="rgba(80,30,5,.6)" stroke-width="1.5"/>
+      <path d="M55 186 Q55 193 150 191 Q245 189 245 184 L242 179 Q150 187 58 179 Z" fill="#d4920a" opacity=".85"/>
+      <path d="M90 181 Q88 196 86 206" stroke="url(#sc)" stroke-width="8" stroke-linecap="round" fill="none" opacity=".8"/>
+      <path d="M145 179 Q143 197 141 211" stroke="url(#sc)" stroke-width="7" stroke-linecap="round" fill="none" opacity=".75"/>
+      <path d="M195 182 Q197 197 198 207" stroke="url(#sc)" stroke-width="6" stroke-linecap="round" fill="none" opacity=".7"/>
+      <ellipse cx="150" cy="180" rx="97" ry="14" fill="#c97a2a" opacity=".7"/>
+      <path d="M52 176 Q48 139 150 129 Q252 119 248 176 Z" fill="url(#bT)"/>
+      <ellipse cx="150" cy="136" rx="60" ry="18" fill="rgba(220,140,60,.18)"/>
+      <ellipse cx="130" cy="139" rx="5" ry="3" fill="rgba(240,200,100,.5)" transform="rotate(-15,130,139)"/>
+      <ellipse cx="155" cy="133" rx="5" ry="3" fill="rgba(240,200,100,.5)" transform="rotate(5,155,133)"/>
+      <ellipse cx="175" cy="141" rx="4" ry="2.5" fill="rgba(240,200,100,.5)" transform="rotate(20,175,141)"/>
+      <ellipse cx="118" cy="151" rx="4" ry="2.5" fill="rgba(240,200,100,.4)" transform="rotate(-10,118,151)"/>
+      <path d="M185 61 Q230 51 255 96 Q268 121 260 146 Q250 166 230 169 Q218 171 208 163 Q195 149 200 131 Q206 113 198 101 Q190 89 180 86 Z" fill="url(#gl)"/>
+      <path d="M232 66 Q248 64 258 84 Q265 103 255 120" fill="none" stroke="rgba(50,50,50,.7)" stroke-width="2"/>
+      <path d="M232 66 Q248 68 255 88 Q260 106 252 122" fill="none" stroke="rgba(80,80,80,.35)" stroke-width="1.5"/>
+      <ellipse cx="150" cy="249" rx="112" ry="13" fill="#000" opacity=".4"/>
+    </svg>
+  </div>
+
+  <div class="text-right">
+    <span class="lbl" id="e3" style="opacity:0;transform:translateX(20px)">Hauptgericht</span>
+    <div class="hdl" id="e4" style="opacity:0;transform:translateX(24px)">Smash &<br><em>Sizzle</em></div>
+    <div class="sub" id="e5" style="opacity:0;transform:translateX(16px)">Täglich frisch<br>zubereitet</div>
+    <div class="badge" id="e6" style="opacity:0;transform:translateX(16px)">ab 13,90 €</div>
+    <button class="cta" id="e7" style="opacity:0;transform:translateX(16px)">Zum Menü</button>
+  </div>
+
+  <div class="scrub">
+    <span>Scroll</span>
+    <div class="track"><div class="trackfill" id="tf"></div></div>
+    <span>Reveal</span>
+  </div>
+  <div class="hint" id="hint">↕ Scrollen oder ziehen</div>
+</div>
+
+<script>
+const scene=document.getElementById('scene');
+const wrap=document.getElementById('burgerWrap');
+const glowEl=document.getElementById('glow');
+const tf=document.getElementById('tf');
+const hint=document.getElementById('hint');
+const uploadPrompt=document.getElementById('uploadPrompt');
+const burgerImg=document.getElementById('burgerImg');
+const burgerSVG=document.getElementById('burgerSVG');
+const imgInput=document.getElementById('imgInput');
+
+const items=[
+  {el:document.getElementById('e0'),dx:-20,delay:0},
+  {el:document.getElementById('e1'),dx:-24,delay:.06},
+  {el:document.getElementById('e2'),dx:-16,delay:.13},
+  {el:document.getElementById('e3'),dx:20,delay:0},
+  {el:document.getElementById('e4'),dx:24,delay:.06},
+  {el:document.getElementById('e5'),dx:16,delay:.13},
+  {el:document.getElementById('e6'),dx:16,delay:.2},
+  {el:document.getElementById('e7'),dx:16,delay:.27},
+];
+
+imgInput.addEventListener('change',e=>{
+  const file=e.target.files[0];
+  if(!file)return;
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    burgerImg.src=ev.target.result;
+    burgerImg.style.display='block';
+    burgerSVG.style.display='none';
+    uploadPrompt.style.display='none';
+  };
+  reader.readAsDataURL(file);
+});
+
+let p=0,t=0,drag=false,lastY=0,gone=false;
+function hideHint(){if(!gone){gone=true;hint.style.opacity='0';}}
+function cubic(x){return 1-Math.pow(1-x,3);}
+function render(c){
+  c=Math.max(0,Math.min(1,c));
+  tf.style.width=(c*100)+'%';
+  wrap.style.transform=`scale(${.78+c*.22}) translateY(${32-c*32}px)`;
+  wrap.style.filter=`brightness(${.3+c*.7}) saturate(${.4+c*.6})`;
+  glowEl.style.opacity=c*.8;
+  glowEl.style.transform=`translate(-50%,-50%) scale(${.5+c*.95})`;
+  items.forEach(it=>{
+    const local=Math.max(0,Math.min(1,(c-it.delay)/.65));
+    const e=cubic(local);
+    it.el.style.opacity=e;
+    it.el.style.transform=`translateX(${it.dx*(1-e)}px)`;
+  });
+}
+(function loop(){p+=(t-p)*.075;render(p);requestAnimationFrame(loop);})();
+scene.addEventListener('wheel',e=>{e.preventDefault();hideHint();t=Math.max(0,Math.min(1,t+e.deltaY*.0035));},{passive:false});
+scene.addEventListener('mousedown',e=>{drag=true;lastY=e.clientY;hideHint();});
+window.addEventListener('mousemove',e=>{if(!drag)return;const d=lastY-e.clientY;lastY=e.clientY;t=Math.max(0,Math.min(1,t+d*.006));});
+window.addEventListener('mouseup',()=>drag=false);
+scene.addEventListener('touchstart',e=>{lastY=e.touches[0].clientY;hideHint();});
+scene.addEventListener('touchmove',e=>{e.preventDefault();const d=lastY-e.touches[0].clientY;lastY=e.touches[0].clientY;t=Math.max(0,Math.min(1,t+d*.006));},{passive:false});
+</script>
