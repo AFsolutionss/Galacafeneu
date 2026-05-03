@@ -284,7 +284,7 @@ function Footer() {
               {D.nav.map(n => (
                 <li key={n.href}><a href={n.href} className="hov-underline" style={{ color: 'var(--c-warm-gray)', fontSize: 13 }}>{n.label}</a></li>
               ))}
-              <li><a href="GALA Webseite.html#booking" className="hov-underline" style={{ color: 'var(--c-warm-gray)', fontSize: 13 }}>Reservierung</a></li>
+              <li><a href="index.html#booking" className="hov-underline" style={{ color: 'var(--c-warm-gray)', fontSize: 13 }}>Reservierung</a></li>
             </ul>
           </div>
         </div>

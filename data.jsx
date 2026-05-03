@@ -30,10 +30,10 @@ const GALA_DATA = {
   ],
 
   nav: [
-    { label: "Über uns", href: "GALA Webseite.html#about" },
+    { label: "Über uns", href: "index.html#about" },
     { label: "Speisekarte", href: "speisekarte.html" },
     { label: "Drinks", href: "drinks.html" },
-    { label: "Galerie", href: "GALA Webseite.html#gallery" },
+    { label: "Galerie", href: "index.html#gallery" },
   ],
 
   menu: [

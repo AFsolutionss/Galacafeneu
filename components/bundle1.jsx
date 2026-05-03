@@ -28,7 +28,7 @@ function Navbar({ tweaks }) {
       className={scrolled ? 'glass' : ''}>
       
       <div className="wrap" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 24 }}>
-        <a href="GALA Webseite.html" aria-label="GALA" style={{ display: 'flex', flexDirection: 'column', lineHeight: 1 }}>
+        <a href="index.html" aria-label="GALA" style={{ display: 'flex', flexDirection: 'column', lineHeight: 1 }}>
           <span className="serif" style={{ fontSize: 26, letterSpacing: '0.18em', color: 'var(--c-accent)', textTransform: 'uppercase' }}>
             GALA
           </span>
@@ -40,7 +40,7 @@ function Navbar({ tweaks }) {
         <nav className="desktop-nav" style={{ display: 'none' }}>
           {D.nav.map((n) => {
             const isHome = !window.location.pathname.match(/speisekarte|drinks/);
-            const href = (isHome && n.href.includes('GALA Webseite.html')) ? n.href.replace('GALA Webseite.html', '') : n.href;
+            const href = (isHome && n.href.includes('index.html')) ? n.href.replace('index.html', '') : n.href;
             return <a key={n.href} href={href} className="hov-underline" style={{ fontSize: 11, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--c-cream)', opacity: 0.7 }}>
               {n.label}
             </a>;
@@ -54,7 +54,7 @@ function Navbar({ tweaks }) {
               <span style={{ color: 'var(--c-cream)' }}>{status.label}</span>
             </span>
           }
-          <a href="GALA Webseite.html#booking" className="btn btn-ghost" style={{ borderColor: 'var(--c-accent)', color: 'var(--c-accent)', padding: '10px 18px' }}>
+          <a href="index.html#booking" className="btn btn-ghost" style={{ borderColor: 'var(--c-accent)', color: 'var(--c-accent)', padding: '10px 18px' }}>
             Reservieren
           </a>
           <button
@@ -82,12 +82,12 @@ function Navbar({ tweaks }) {
             }
             {D.nav.map((n) => {
               const isHome = !window.location.pathname.match(/speisekarte|drinks/);
-              const href = (isHome && n.href.includes('GALA Webseite.html')) ? n.href.replace('GALA Webseite.html', '') : n.href;
+              const href = (isHome && n.href.includes('index.html')) ? n.href.replace('index.html', '') : n.href;
               return <a key={n.href} href={href} onClick={() => setOpen(false)} style={{ padding: '14px 0', borderBottom: '1px solid var(--c-line)', fontSize: 12, letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--c-cream)', opacity: 0.75 }}>
                 {n.label}
               </a>;
             })}
-            <a href="GALA Webseite.html#booking" onClick={() => setOpen(false)} className="btn btn-primary" style={{ marginTop: 14 }}>
+            <a href="index.html#booking" onClick={() => setOpen(false)} className="btn btn-primary" style={{ marginTop: 14 }}>
               Tisch reservieren
             </a>
           </nav>

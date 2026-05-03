@@ -170,7 +170,7 @@ function MenuPage() {
               </ul>
               <div style={{ marginTop: 28, paddingTop: 22, borderTop: '1px solid var(--c-line)' }}>
                 <div style={{ fontSize: 10, letterSpacing: '0.32em', textTransform: 'uppercase', color: 'var(--c-warm-gray-2)', marginBottom: 12 }}>Tisch buchen</div>
-                <a href="GALA Webseite.html#booking" className="hov-underline" style={{ fontSize: 13, color: 'var(--c-accent)', letterSpacing: '0.05em' }}>
+                <a href="index.html#booking" className="hov-underline" style={{ fontSize: 13, color: 'var(--c-accent)', letterSpacing: '0.05em' }}>
                   Reservierung anfragen →
                 </a>
               </div>
@@ -281,7 +281,7 @@ function DrinksPage() {
               <div style={{ paddingTop: 22, borderTop: '1px solid var(--c-line)' }}>
                 <div style={{ fontSize: 10, letterSpacing: '0.32em', textTransform: 'uppercase', color: 'var(--c-warm-gray-2)', marginBottom: 12 }}>Auch da</div>
                 <a href="speisekarte.html" className="hov-underline" style={{ display: 'block', fontSize: 13, color: 'var(--c-cream)', marginBottom: 6 }}>Speisekarte →</a>
-                <a href="GALA Webseite.html#booking" className="hov-underline" style={{ display: 'block', fontSize: 13, color: 'var(--c-accent)' }}>Reservierung anfragen →</a>
+                <a href="index.html#booking" className="hov-underline" style={{ display: 'block', fontSize: 13, color: 'var(--c-accent)' }}>Reservierung anfragen →</a>
               </div>
             </div>
           </aside>
